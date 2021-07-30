@@ -23,6 +23,7 @@ const getMainDB = async (csvFile) => {
     const mainData = [];
 
     createReadStream(csvFile)
+      // TODO: add error handing if file don exist
       .on("error", (error) => {
         reject(error);
       })

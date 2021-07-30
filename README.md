@@ -78,8 +78,8 @@ in folder ./output
 ```
 
 ## TODO
-- [ ] filtrowanie bazy i generowanie zmiennych
-- [ ] wprowadzenie tekstu z bazy
+- [X] filtrowanie bazy i generowanie zmiennych
+- [X] wprowadzenie tekstu z bazy
 - [ ] dodanie bloków if w template
 - [ ] dodane ewentualnej domenu do linków przy zdjęciach
 - [ ] wyszukiwanie zdjęć, z bazy wrzuć do tabeli i użyj .find()

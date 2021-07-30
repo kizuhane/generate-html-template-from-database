@@ -1,10 +1,80 @@
+var { existsSync, mkdirSync, readdirSync } = require("fs");
+const { join } = require("path");
+
+const phraseDescription = require("./descriptionScripts/phraseDescription.js");
+const createDescription = require("./descriptionScripts/createDescription.js");
+
+const OUTPUT_DIRECTORY = join(__dirname, "../output");
+
 const generateDescription = ({ mainData, ProductData }) => {
-  console.log("-------- end");
-  // mainData.forEach((el) => {
-  //   el.productList.map((prodIndex) => {
-  //     // ProductData.
-  //   });
-  // });
+  // create output files if don't exist
+  if (!existsSync(OUTPUT_DIRECTORY)) mkdirSync(OUTPUT_DIRECTORY);
+
+  // loop true all model groups and generate description
+  mainData.forEach(async (descriptionGroup) => {
+    // console.log(descriptionGroup); //DEBUG:
+    // console.log(ProductData); //DEBUG:
+
+    // const
+
+    console.log(
+      `\x1b[30m\x1b[44m GENERATE DESCRIPTION FOR:\x1b[0m\x1b[1m ${descriptionGroup.model}\x1b[0m`
+    );
+
+    // check if Product list is empty
+    if (!descriptionGroup.productList.length) {
+      console.error(
+        `\n\x1b[30m\x1b[41m-- Product list for ${descriptionGroup.model} is empty edit main_database.csv to add products for witch description will be generated --\x1b[0m`
+      );
+      return console.log(
+        `\n\x1b[42m\x1b[30m FINISHED: \x1b[0m ${descriptionGroup.model}\n`
+      );
+    }
+
+    // crate folder for current product model group (replace '/' with '-')
+    const modelGroupDirectoryName = `${descriptionGroup.model}`.replace("/", "-");
+    const exportDirectory = join(OUTPUT_DIRECTORY, modelGroupDirectoryName);
+    if (!existsSync(exportDirectory)) {
+      mkdirSync(exportDirectory);
+      console.log(
+        `── create folder: '\x1b[34m${modelGroupDirectoryName}\x1b[0m' for '\x1b[34m${descriptionGroup.model}\x1b[0m'`
+      );
+    }
+
+    // check if given photos exist in directory input/images
+    console.log(`\n── checking if given ${descriptionGroup.photos.length} photos exist:`);
+    if (descriptionGroup.photos.length) {
+      try {
+        const files = readdirSync(join(__dirname, "../input/images"));
+        descriptionGroup.photos.map((photoNameDB) =>
+          files.find((imgFile) => photoNameDB === imgFile)
+            ? console.log(`   ── [\x1b[32m✓\x1b[0m] found: \x1b[4m${photoNameDB}\x1b[0m`)
+            : console.log(`   ── \x1b[31m[X] missing image: \x1b[4m${photoNameDB}\x1b[0m`)
+        );
+      } catch (err) {
+        console.error("\x1b[31m%s\x1b[0m", err);
+      }
+    } else {
+      console.log("   └─ no photos provided");
+    }
+
+    // phrase description from string object
+    console.log(`── phrasing template\x1b[5m ...\x1b[0m`);
+    const phrasedTemplate = phraseDescription({ template: descriptionGroup.template });
+    console.log("   └─ DONE");
+
+    // map thru all product list and create description files
+    console.log(`── generating description\x1b[5m \x1b[0m`);
+    createDescription({
+      groupData: descriptionGroup,
+      exportDirectory: exportDirectory,
+      templateData: phrasedTemplate,
+      descriptionData: ProductData,
+    });
+
+    // END
+    console.log(`\n\x1b[42m\x1b[30m FINISHED: \x1b[0m ${descriptionGroup.model}\n`);
+  });
 };
 
 module.exports = generateDescription;

@@ -2,7 +2,6 @@ const { createReadStream } = require("fs");
 const { join } = require("path");
 const csv = require("csv-parser");
 const config = require("config");
-const { promises } = require("stream");
 
 const CONFIG_SEPARATOR = config.get("dbInputConfig.separator");
 const CONFIG_INDEX_COLUMN_NAME = config.get("dbInputConfig.Index_column_name");
@@ -11,10 +10,11 @@ const CONFIG_ATTRIBUTES_START = config.get(
 );
 
 /**
+ * @param {string[]} csvProductFiles
+ * @return {object} merged data from all product databases
  * hashMap: {object} {'index':indexInArray} => {'W-97446':0,'W-97976':1}
  * dataArray {array<object>} [{name:string,index:string;attributes:{${atr}...:(string|num)}}]
  */
-
 const getProductDB = async (csvProductFiles) => {
   let counter = 0;
 
@@ -24,6 +24,7 @@ const getProductDB = async (csvProductFiles) => {
       const dataArray = [];
 
       createReadStream(join(__dirname, "../input/database/", `${csvFile}.csv`))
+        // TODO: add error handing if files don exist
         .on("error", (error) => {
           reject(error);
         })
@@ -47,6 +48,9 @@ const getProductDB = async (csvProductFiles) => {
             .map(([key, value]) => ({ [key]: value })) // change array to object
             .reduce((acc, cur) => Object.assign(acc, cur)); // flatten object
 
+          //add 'Nazwa' attribute to attributes
+          Object.assign(attributes, { Nazwa: data["Nazwa"] });
+
           dataArray.push({ ...rowData, attributes: attributes });
 
           counter++;
@@ -57,11 +61,14 @@ const getProductDB = async (csvProductFiles) => {
     });
     return dbProdData;
   });
-  const a = await Promise.all(data);
-  const bbb = a.reduce((acc, cur) => console.log(Object.assign(acc, cur)));
+  const allData = await Promise.all(data);
 
-  console.log(bbb);
-  // return Promise.all(data.flat());
+  return allData.reduce((acc, cur) => {
+    return {
+      hashMap: { ...acc.hashMap, ...cur.hashMap },
+      dataArray: [...acc.dataArray, ...cur.dataArray],
+    };
+  });
 };
 
 module.exports = getProductDB;
