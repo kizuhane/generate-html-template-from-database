@@ -1,0 +1,15 @@
+{
+  "name": "generate-html-template-from-database",
+  "version": "0.0.1",
+  "description": "",
+  "main": "mian.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "author": "Jakiel Artur",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.6",
+    "csv-parser": "^3.0.0"
+  }
+}

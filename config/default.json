@@ -1,0 +1,11 @@
+{
+  "dbInputConfig": {
+    "separator": ";",
+    "Index_column_name": "Wartości atrybutu 1",
+    "Attributes_start_column_number": 16
+  },
+  "export": {
+    "insert_domain_to_image_url": false,
+    "domain_text": ""
+  }
+}
