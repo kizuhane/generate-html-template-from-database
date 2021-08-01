@@ -12,19 +12,15 @@ const generateDescription = ({ mainData, ProductData }) => {
 
   // loop true all model groups and generate description
   mainData.forEach(async (descriptionGroup) => {
-    // console.log(descriptionGroup); //DEBUG:
-    // console.log(ProductData); //DEBUG:
-
-    // const
-
     console.log(
       `\x1b[30m\x1b[44m GENERATE DESCRIPTION FOR:\x1b[0m\x1b[1m ${descriptionGroup.model}\x1b[0m`
     );
+    console.log("│");
 
     // check if Product list is empty
     if (!descriptionGroup.productList.length) {
       console.error(
-        `\n\x1b[30m\x1b[41m-- Product list for ${descriptionGroup.model} is empty edit main_database.csv to add products for witch description will be generated --\x1b[0m`
+        `\x1b[30m\x1b[41m-- Product list for ${descriptionGroup.model} is empty edit main_database.csv to add products for witch description will be generated --\x1b[0m`
       );
       return console.log(
         `\n\x1b[42m\x1b[30m FINISHED: \x1b[0m ${descriptionGroup.model}\n`
@@ -37,34 +33,35 @@ const generateDescription = ({ mainData, ProductData }) => {
     if (!existsSync(exportDirectory)) {
       mkdirSync(exportDirectory);
       console.log(
-        `── create folder: '\x1b[34m${modelGroupDirectoryName}\x1b[0m' for '\x1b[34m${descriptionGroup.model}\x1b[0m'`
+        `├─ create folder: '\x1b[34m${modelGroupDirectoryName}\x1b[0m' for '\x1b[34m${descriptionGroup.model}\x1b[0m'`
       );
     }
 
     // check if given photos exist in directory input/images
-    console.log(`\n── checking if given ${descriptionGroup.photos.length} photos exist:`);
+    console.log(`├─ checking if given ${descriptionGroup.photos.length} photos exist:`);
     if (descriptionGroup.photos.length) {
       try {
         const files = readdirSync(join(__dirname, "../input/images"));
         descriptionGroup.photos.map((photoNameDB) =>
           files.find((imgFile) => photoNameDB === imgFile)
-            ? console.log(`   ── [\x1b[32m✓\x1b[0m] found: \x1b[4m${photoNameDB}\x1b[0m`)
-            : console.log(`   ── \x1b[31m[X] missing image: \x1b[4m${photoNameDB}\x1b[0m`)
+            ? console.log(`│  ├─ [\x1b[32m✓\x1b[0m] found: \x1b[4m${photoNameDB}\x1b[0m`)
+            : console.log(`│  ├─ \x1b[31m[X] missing image: \x1b[4m${photoNameDB}\x1b[0m`)
         );
+        console.log(`│  └─\x1b[32m all found photos copped\x1b[0m\n│`);
       } catch (err) {
         console.error("\x1b[31m%s\x1b[0m", err);
       }
     } else {
-      console.log("   └─ no photos provided");
+      console.log("│  └─ no photos provided\n│");
     }
 
     // phrase description from string object
-    console.log(`── phrasing template\x1b[5m ...\x1b[0m`);
+    console.log(`├─ phrasing template\x1b[5m ...\x1b[0m`);
     const phrasedTemplate = phraseDescription({ template: descriptionGroup.template });
-    console.log("   └─ DONE");
+    console.log("│  └─ DONE\n│");
 
     // map thru all product list and create description files
-    console.log(`── generating description\x1b[5m \x1b[0m`);
+    console.log(`├─ generating description\x1b[5m \x1b[0m`);
     createDescription({
       groupData: descriptionGroup,
       exportDirectory: exportDirectory,
@@ -73,7 +70,7 @@ const generateDescription = ({ mainData, ProductData }) => {
     });
 
     // END
-    console.log(`\n\x1b[42m\x1b[30m FINISHED: \x1b[0m ${descriptionGroup.model}\n`);
+    console.log(`│  │\n\x1b[42m\x1b[30m FINISHED: \x1b[0m ${descriptionGroup.model}\n`);
   });
 };
 

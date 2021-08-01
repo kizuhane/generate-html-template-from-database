@@ -6,6 +6,7 @@
   },
   "export": {
     "insert_domain_to_image_url": false,
-    "domain_text": ""
+    "domain_text": "",
+    "extension": "html"
   }
 }
