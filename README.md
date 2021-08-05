@@ -11,11 +11,12 @@ Generate multiple text files based on template text from database in csv format 
 ## Setup
 
 ### input
+All files whats script will be using need be placed in `input` directory
 
 #### DataBase
 in folder `input/database` must be placed all needed csv files.
 
->NOTE: don't use `,` as separator for column in exported files because comma is used to separate multiple data in single column.
+>NOTE: don't use `,` as separator for column in exported files, because comma is used to separate multiple data in single column.
 
 **Main database** - name: `main_database.csv` database with separated with `;` in default. Script using data from this files to generate html files
  - **Model**: main group of products with the same template.
@@ -58,6 +59,7 @@ base on csv file named `inputDatabase.csv` in `input/database` directory, create
 #### example
 in `/input/example` are place example files for demonstration, copy csv files to `/input/database`, copy image folder to `/input/images` and run program to see demonstration.
 
+
 **Main database**
 
 | Model        | Product group                | Notes    | Related product indexes (separated by ",") | name of used photos (separated by ",") with extension     | text description           | html template                                                       |
@@ -66,9 +68,11 @@ in `/input/example` are place example files for demonstration, copy csv files to
 | PS-HEAVY/S   | Przedłużacze specjalistyczne | {{name}} | 98925,W-98926                              |                                                           | {{Nazwa}} Lorem ipsum d... | `<section style="max-width:1000px;margin:auto"><h3>{{Nazwa}}</h...` |
 
 **Related product database**
+
 see `example_Related_product_database-...` in example folder to understand schema.
 
-**generate**
+
+**Output**
 ```
 in folder ./output
 
@@ -104,8 +108,10 @@ in folder ./output
   ...
 
 ```
+
 ## Configuration
 script have [config](/config/default.json) file in json format you can edit it to alter script functionality
+
 
 #### dbInputConfig
 `separator`- {string} separator used to phrase data from csv files (default; `;`)
