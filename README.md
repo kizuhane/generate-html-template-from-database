@@ -2,7 +2,7 @@ Generate multiple text files based on template text from database in csv format 
 
 ## installation
 
-1. instal node ^14 
+1. instal [node.js](https://nodejs.org/) (version ^14)
 2. clone or download repository to own computer
 3. in terminal open go to this project type:
    1. `npm run install` - to install all dependency
@@ -25,7 +25,7 @@ in folder `input/database` must be placed all needed csv files.
  - **text description**: script don't use this column is only for user readability.
  - **html template**: html template in string format.
 
-**Related product database** - name: `${Product group}.csv` database with name from column *Product group*. Every product is written in row schema (att name,att data,att note,att name,att data,att note...). In config file `config/config.json` as `dbInputConfig.Index_column_name` is specified name of column where index are place is. To indicate which column the attributes begin in the same config file in `dbInputConfig.Attributes_start_column_number` enter the column number starting indexing from 1. 
+**Related product database** - name: `${Product group}.csv` database with name from column *Product group*. Every product is written in row schema (att name,att data,att note,att name,att data,att note...). In [config](/config/default.json) file `config/default.json` as `dbInputConfig.Index_column_name` is specified name of column where index are place in. To indicate which column the attributes begin in the same [config](/config/default.json) file in `dbInputConfig.Attributes_start_column_number` enter the column number starting indexing from 1. 
 
 *Related product database* link with *Main database* using column `Product group` in main database. Next load all product from *Related product database* where in config file `dbInputConfig.Index_column_name` are name of column what have index of loading items. This index must be the same as index in `Related product indexes` column in *Main database*. 
 
@@ -53,7 +53,7 @@ full example:
 **images** - to link image you need to prefix image name with `image:`, `{{image:image_name.jpg}}`
 
 ### output
-base on csv file named `inputDatabase.csv` in `input/database` directory, create folder in `output` directory named like in csv file in column model and generate *text based file* (html as default) from colum template and `assets` folder with all images for this description. To change file type for generated output in config file `config/config.json` change `export.extension` to preferred extension.
+base on csv file named `inputDatabase.csv` in `input/database` directory, create folder in `output` directory named like in csv file in column model and generate *text based file* (html as default) from colum template and `assets` folder with all images for this description. To change file type for generated output in config file `config/default.json` change `export.extension` to preferred extension.
 
 #### example
 in `/input/example` are place example files for demonstration, copy csv files to `/input/database`, copy image folder to `/input/images` and run program to see demonstration.
@@ -105,6 +105,7 @@ in folder ./output
 
 ```
 ## Configuration
+script have [config](/config/default.json) file in json format you can edit it to alter script functionality
 
 #### dbInputConfig
 `separator`- {string} separator used to phrase data from csv files (default; `;`)
@@ -122,5 +123,3 @@ in folder ./output
 `domain_text`- {string} string to add before every image when generating text from template
 
 `extension`- {string} filename extension for file with generated template(default: `html`)
-
-
