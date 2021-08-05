@@ -1,9 +1,10 @@
 {
   "name": "generate-html-template-from-database",
-  "version": "0.0.1",
-  "description": "",
-  "main": "mian.js",
+  "version": "1.0.0",
+  "description": "Generate multiple text files based on template text from database in csv format using information from other csv files",
+  "main": "src/main.js",
   "scripts": {
+    "install": "npm install",
     "start": "node src/main.js"
   },
   "author": "Jakiel Artur",

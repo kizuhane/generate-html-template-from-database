@@ -2,3 +2,7 @@
 /input/database/*
 /input/images/*
 /output/*
+
+# keep the empty input folders
+!/input/database/.gitkeep
+!/input/images/.gitkeep

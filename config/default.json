@@ -1,6 +1,7 @@
 {
   "dbInputConfig": {
     "separator": ";",
+    "Input_db_extension": "csv",
     "Index_column_name": "Wartości atrybutu 1",
     "Attributes_start_column_number": 16
   },

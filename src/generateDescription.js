@@ -57,7 +57,7 @@ const generateDescription = ({ mainData, ProductData }) => {
 
     // phrase description from string object
     console.log(`├─ phrasing template\x1b[5m ...\x1b[0m`);
-    const phrasedTemplate = phraseDescription({ template: descriptionGroup.template });
+    const templateData = phraseDescription({ template: descriptionGroup.template });
     console.log("│  └─ DONE\n│");
 
     // map thru all product list and create description files
@@ -65,7 +65,7 @@ const generateDescription = ({ mainData, ProductData }) => {
     createDescription({
       groupData: descriptionGroup,
       exportDirectory: exportDirectory,
-      templateData: phrasedTemplate,
+      templateData,
       descriptionData: ProductData,
     });
 

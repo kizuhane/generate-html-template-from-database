@@ -8,6 +8,7 @@ const CONFIG_INDEX_COLUMN_NAME = config.get("dbInputConfig.Index_column_name");
 const CONFIG_ATTRIBUTES_START = config.get(
   "dbInputConfig.Attributes_start_column_number"
 );
+const CONFIG_INPUT_DB_EXTENSION = config.get("dbInputConfig.Input_db_extension");
 
 /**
  * @param {string[]} csvProductFiles
@@ -23,7 +24,9 @@ const getProductDB = async (csvProductFiles) => {
       const hashMap = {};
       const dataArray = [];
 
-      createReadStream(join(__dirname, "../input/database/", `${csvFile}.csv`))
+      createReadStream(
+        join(__dirname, "../input/database/", `${csvFile}.${CONFIG_INPUT_DB_EXTENSION}`)
+      )
         // TODO: add error handing if files don exist
         .on("error", (error) => {
           reject(error);

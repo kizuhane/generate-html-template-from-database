@@ -1,7 +1,3 @@
-const { join } = require("path");
-const { createReadStream, readdirSync } = require("fs");
-const config = require("config");
-
 const loadInputDataBase = require("./loadInputDataBase.js");
 const loadProductsData = require("./loadProductsData.js");
 const generateDescription = require("./generateDescription.js");

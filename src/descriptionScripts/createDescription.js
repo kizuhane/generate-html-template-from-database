@@ -27,7 +27,7 @@ const createDescription = ({
         outputItemDir = join(exportDirectory, `${item}_${index}`);
         mkdirSync(`${outputItemDir}`);
         console.log(
-          `│  │  └─ [\x1b[33m?\x1b[0m] directory ${item} exist create ${item}_${index} instead\x1b[0m`
+          `│  │  ├─ [\x1b[33m?\x1b[0m] directory ${item} exist create ${item}_${index} instead\x1b[0m`
         );
       } catch (err) {
         console.error(err);
@@ -35,7 +35,7 @@ const createDescription = ({
     } else {
       try {
         mkdirSync(`${outputItemDir}`);
-        console.log(`│  │  └─ [\x1b[32m✓\x1b[0m] create directory ${item}\x1b[0m`);
+        console.log(`│  │  ├─ [\x1b[32m✓\x1b[0m] create directory ${item}\x1b[0m`);
       } catch (err) {
         console.error(err);
       }
@@ -67,6 +67,7 @@ const createDescription = ({
     // create description file
     console.log(`│  │  ├─ creating descriptions:`);
     for (const [key, value] of Object.entries(templateData.templateAttributesList)) {
+      // add all if statements
       if (key === "conditions") {
         value.forEach((con) => {
           if (
@@ -81,10 +82,9 @@ const createDescription = ({
           }
         });
       }
+      // add all images to description images
       if (key === "images") {
-        // link images to description images
         value.forEach((img) => {
-          // REVIEW: Check if this work
           if (CONFIG_EXPORT_INSERT_DOMAIN_TO_IMAGE) {
             thisItemTemplateData[
               img.arrayIndex
@@ -94,8 +94,8 @@ const createDescription = ({
           }
         });
       }
+      // add all variables to template
       if (key === "variables") {
-        // add all variables to template
         value.forEach((attr) => {
           const currentAttr = itemData.attributes[attr.attributeName];
           if (!currentAttr) {

@@ -2,7 +2,15 @@ const { createReadStream } = require("fs");
 const { join } = require("path");
 const csv = require("csv-parser");
 
-const mainDBFile = join(__dirname, "../input/database/main_database.csv");
+const config = require("config");
+
+const CONFIG_INPUT_DB_EXTENSION = config.get("dbInputConfig.Input_db_extension");
+const CONFIG_SEPARATOR = config.get("dbInputConfig.separator");
+
+const mainDBFile = join(
+  __dirname,
+  `../input/database/main_database.${CONFIG_INPUT_DB_EXTENSION}`
+);
 
 /**
  *
@@ -27,7 +35,7 @@ const getMainDB = async (csvFile) => {
       .on("error", (error) => {
         reject(error);
       })
-      .pipe(csv({ separator: ";" }))
+      .pipe(csv({ separator: CONFIG_SEPARATOR }))
       .on("data", (data) => {
         mainData.push({
           model: data["Model"],
