@@ -5,7 +5,7 @@ Generate multiple text files based on template text from database in csv format 
 1. instal [node.js](https://nodejs.org/) (version ^14)
 2. clone or download repository to own computer
 3. in terminal open go to this project type:
-   1. `npm run install` - to install all dependency
+   1. `npm install` - to install all dependency
    2. `npm run start` - to run script
 
 ## Setup

@@ -4,7 +4,6 @@
   "description": "Generate multiple text files based on template text from database in csv format using information from other csv files",
   "main": "src/main.js",
   "scripts": {
-    "install": "npm install",
     "start": "node src/main.js"
   },
   "author": "Jakiel Artur",
