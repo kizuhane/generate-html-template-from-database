@@ -50,7 +50,7 @@ const getMainDB = async (csvFile) => {
       });
   });
 
-  return { data: dbData, productsDB: dbData.map((el) => el.productDB) };
+  return { data: dbData, productsDB: [...new Set(dbData.map((el) => el.productDB))] };
 };
 
 const mainDbData = getMainDB(mainDBFile);
