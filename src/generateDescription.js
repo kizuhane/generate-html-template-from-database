@@ -7,8 +7,17 @@ const createDescription = require("./descriptionScripts/createDescription.js");
 const OUTPUT_DIRECTORY = join(__dirname, "../output");
 
 const generateDescription = ({ mainData, ProductData }) => {
-  // create output files if don't exist
-  if (!existsSync(OUTPUT_DIRECTORY)) mkdirSync(OUTPUT_DIRECTORY);
+  // create output files if don't exist if exist force user to clear output file if not empty
+  if (!existsSync(OUTPUT_DIRECTORY)) {
+    mkdirSync(OUTPUT_DIRECTORY);
+  } else {
+    // if output file is not empty force user to clear directory
+    if (readdirSync(OUTPUT_DIRECTORY).length)
+      console.log(
+        "\n\x1b[41m\x1b[30m PLEASE CLEAR OUTPUT DIRECTORY BEFORE GENERATING NEW FILES \x1b[0m"
+      );
+    process.exit(0);
+  }
 
   // loop true all model groups and generate description
   mainData.forEach(async (descriptionGroup) => {
