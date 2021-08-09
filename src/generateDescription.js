@@ -12,11 +12,12 @@ const generateDescription = ({ mainData, ProductData }) => {
     mkdirSync(OUTPUT_DIRECTORY);
   } else {
     // if output file is not empty force user to clear directory
-    if (readdirSync(OUTPUT_DIRECTORY).length)
+    if (readdirSync(OUTPUT_DIRECTORY).length) {
       console.log(
         "\n\x1b[41m\x1b[30m PLEASE CLEAR OUTPUT DIRECTORY BEFORE GENERATING NEW FILES \x1b[0m"
       );
-    process.exit(0);
+      process.exit(0);
+    }
   }
 
   // loop true all model groups and generate description
