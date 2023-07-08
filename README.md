@@ -4,7 +4,7 @@ Generate multiple text files based on template text from database in csv format 
 
 1. instal [node.js](https://nodejs.org/) (version ^14)
 2. clone or download repository to own computer
-3. in terminal open go to this project type:
+3. open terminal go to this project and type:
    1. `npm install` - to install all dependency
    2. `npm run start` - to run script
 
@@ -21,7 +21,7 @@ in folder `input/database` must be placed all needed csv files.
 **Main database** - name: `main_database.csv` database with separated with `;` in default. Script using data from this files to generate html files
  - **Model**: main group of products with the same template.
  - **Product group**: used as name of file with data for specific products.
- - **Related product indexes (separated by ",")**: list of index or any unique string to generate text based on template in single group/MOdel (must be unique).
+ - **Related product indexes (separated by ",")**: list of index or any unique string to generate text based on template in single group/Model (must be unique).
  - **name of used photos (separated by ",") with extension**: names of photos put in `input/images` with extension (must be unique).
  - **text description**: script don't use this column is only for user readability.
  - **html template**: html template in string format.
@@ -33,12 +33,12 @@ in folder `input/database` must be placed all needed csv files.
 > in directory `input/example` are example files to use
 
 #### images
-in directory `input/images` putt all images used in `main_database.csv`
+In directory `input/images` putt all images used in `main_database.csv`
 
 #### template 
-script using simple template language where you put variables inside double curly brackets `{{variable name}}`
+Script using simple template language where you put variables inside double curly brackets `{{variable name}}`
 
-**add variables** - to add variable put attribute name inside double curly brackets ``{{here}}``
+**add variables** - to add variable put attribute name inside double curly brackets `{{here}}`
 
 **condition statement** - this script support single condition statement to put text fragment if specific argument pass condition statement, supported condition: `==`, `!=`, `===`, `!==`, `<`, `<=`, `>`, `>=`.
 ```
@@ -54,10 +54,10 @@ full example:
 **images** - to link image you need to prefix image name with `image:`, `{{image:image_name.jpg}}`
 
 ### output
-base on csv file named `inputDatabase.csv` in `input/database` directory, create folder in `output` directory named like in csv file in column model and generate *text based file* (html as default) from colum template and `assets` folder with all images for this description. To change file type for generated output in config file `config/default.json` change `export.extension` to preferred extension.
+Base on csv file named `inputDatabase.csv` in `input/database` directory, create folder in `output` directory named like in csv file in column model and generate *text based file* (html as default) from colum template and `assets` folder with all images for this description. To change file type for generated output in config file `config/default.json` change `export.extension` to preferred extension.
 
 #### example
-in `/input/example` are place example files for demonstration, copy csv files to `/input/database`, copy image folder to `/input/images` and run program to see demonstration.
+In `/input/example` are place example files for demonstration, copy csv files to `/input/database`, copy image folder to `/input/images` and run program to see demonstration.
 
 
 **Main database**
@@ -110,7 +110,7 @@ in folder ./output
 ```
 
 ## Configuration
-script have [config](/config/default.json) file in json format you can edit it to alter script functionality
+Script have [config](/config/default.json) file in json format, you can edit it to alter script functionality
 
 
 #### dbInputConfig

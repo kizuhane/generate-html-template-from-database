@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node src/main.js"
   },
-  "author": "Jakiel Artur",
   "license": "MIT",
   "dependencies": {
     "config": "^3.3.6",
